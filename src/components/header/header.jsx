@@ -8,7 +8,7 @@ export default function Header() {
     <>
       <header className={s.header}>
         <ul className={s.navList}>
-          <NavLink to="/photos" className={s.navItem}>
+          <NavLink to="/" className={s.navItem}>
             photos
           </NavLink>
           <NavLink to="/illustrations" className={s.navItem}>
@@ -24,7 +24,6 @@ export default function Header() {
             Music
           </NavLink>
         </ul>
-        {/* <SearchBar /> */}
       </header>
       <Suspense fallback={<div>...Loading</div>}>
         <Outlet />

@@ -5,8 +5,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(38, 36, 36);
+  color: white;
 }
-
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  font-size: 1vw;
+  /* overflow-x: hidden; */
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -22,4 +29,9 @@ input {
   padding: 0;
   text-decoration: 0;
   list-style: none;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

@@ -10,7 +10,7 @@ function App() {
         <Route path="/" element={<Header />}>
           {/* <Route index element={<SearchBar />} /> */}
           {/* <Route path="/" element={<SearchBar />}> */}
-          <Route path="photos" element={<Photos />} />
+          <Route index element={<Photos />} />
           <Route path="illustrations" element={<div>illustrations</div>} />
           <Route path="vectors" element={<div>vectors</div>} />
           <Route path="videos" element={<div>videos</div>} />
