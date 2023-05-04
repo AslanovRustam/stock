@@ -1,6 +1,5 @@
 import s from "./searchbar.module.css";
-import { Suspense, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export default function SearchBar({ submitForm }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,14 +18,11 @@ export default function SearchBar({ submitForm }) {
         <input
           className={s.input}
           type="text"
-          placeholder="some text"
+          placeholder="enter your search query"
           onChange={handleChange}
           value={searchQuery}
         />
       </form>
-      {/* <Suspense fallback={<div>...Loading from Searchbar</div>}>
-        <Outlet />
-      </Suspense> */}
     </>
   );
 }

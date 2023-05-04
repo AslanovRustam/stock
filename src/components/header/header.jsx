@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { Suspense } from "react";
+import Loader from "../loader/loader";
 import s from "./header.module.css";
-import SearchBar from "../serchbar/searchbar";
 
 export default function Header() {
   return (
@@ -25,7 +25,7 @@ export default function Header() {
           </NavLink>
         </ul>
       </header>
-      <Suspense fallback={<div>...Loading</div>}>
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </>
