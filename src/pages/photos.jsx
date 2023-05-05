@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { FetchImages } from "../../services/api";
-import Modal from "../modal/modal";
-import SearchBar from "../serchbar/searchbar";
-import Loader from "../loader/loader";
-import ItemsList from "../itemsList/itemlist";
-import Button from "../button/button";
-import ScrollToTopBtn from "../scrollToTopBtn/scrollToTopBtn";
+import Modal from "../components/modal/modal";
+import SearchBar from "../components/serchbar/searchbar";
+import Loader from "../components/loader/loader";
+import ItemsList from "../components/itemsList/itemlist";
+import Button from "../components/button/button";
+import ScrollToTopBtn from "../components/scrollToTopBtn/scrollToTopBtn";
+import { FetchImages } from "../services/api";
 
 export default function Photos() {
   const [showModal, setShowmodal] = useState(false);

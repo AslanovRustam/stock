@@ -9,16 +9,16 @@ export default function Header() {
       <header className={s.header}>
         <ul className={s.navList}>
           <NavLink to="/" className={s.navItem}>
-            photos
+            Photos
+          </NavLink>
+          <NavLink to="/videos" className={s.navItem}>
+            Video
           </NavLink>
           <NavLink to="/illustrations" className={s.navItem}>
             Illustrations
           </NavLink>
           <NavLink to="/vectors" className={s.navItem}>
             Vectors
-          </NavLink>
-          <NavLink to="/videos" className={s.navItem}>
-            Videos
           </NavLink>
           <NavLink to="/music" className={s.navItem}>
             Music

@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react";
 
 const modalRoot = document.querySelector("#modal-root");
 
-export default function Modal({ onClose, data }) {
+export default function Modal({ onClose, data, video }) {
   useEffect(() => {
     document.body.classList.add(s.overvlow);
     return () => {
@@ -33,7 +33,14 @@ export default function Modal({ onClose, data }) {
   return createPortal(
     <div className={s.modalBackDrop} onClick={handleBackdropClick}>
       <div className={s.container}>
-        <img className={s.img} src={data} alt />
+        {video ? (
+          <video className={s.video} controls="controls">
+            {" "}
+            <source src={data} type="video/mp4" />
+          </video>
+        ) : (
+          <img className={s.img} src={data} alt={data} />
+        )}
       </div>
     </div>,
     modalRoot
