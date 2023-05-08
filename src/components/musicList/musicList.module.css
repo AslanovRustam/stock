@@ -1,0 +1,77 @@
+.list {
+  display: grid;
+  max-width: calc(100vw - 5em);
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+  margin: 0 auto;
+  padding: 1em;
+}
+.item {
+  border: 0.1em solid rgb(236, 236, 236);
+  transition: all 250ms ease-in-out 0s;
+}
+.img {
+  width: 100%;
+  max-height: 15em;
+  height: 15em;
+  object-fit: cover;
+  filter: saturate(0);
+  transition: all 250ms ease-in-out 0s;
+}
+.img:hover,
+.img:focus {
+  filter: saturate(1);
+  cursor: pointer;
+}
+.btn {
+  margin: 2em auto;
+  width: 10em;
+  padding: 0.5em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1ed760;
+  box-shadow: #1ed760 0 0 1em;
+  border: 0.1em solid grey;
+  color: black;
+  transition: all 250ms ease-in-out 0s;
+  cursor: pointer;
+  cursor: pointer;
+}
+.btn a {
+  color: inherit;
+}
+.btn:hover,
+.btn:focus {
+  color: rgb(236, 236, 236);
+  border: 0.1em solid rgb(236, 236, 236);
+  box-shadow: whitesmoke 0 0 1em;
+}
+.wrapper,
+.container,
+.btnWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.btnLogin {
+  display: flex;
+  flex-direction: column;
+  border-radius: 50%;
+  padding: 2em;
+}
+.imgSpotify {
+  width: 5em;
+  height: auto;
+}
+.btn:hover,
+.btn:focus {
+  background-color: inherit;
+}
+.btn:hover .imgSpotify,
+.btn:focus .imgSpotify {
+  filter: saturate(1);
+}
+.btnWrapper {
+  align-items: center;
+  margin-top: 30vh;
+}

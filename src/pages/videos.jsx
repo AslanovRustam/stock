@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-// import { FetchVideo } from "../services/apiVideo";
+import { FetchVideo } from "../services/apiVideo";
 import Modal from "../components/modal/modal";
 import SearchBar from "../components/serchbar/searchbar";
 import Loader from "../components/loader/loader";
 import Videolist from "../components/itemsList/videoList";
 import Button from "../components/button/button";
 import ScrollToTopBtn from "../components/scrollToTopBtn/scrollToTopBtn";
-import { FetchVideo } from "../services/apiVideo";
 
 export default function Videos() {
   const [showModal, setShowmodal] = useState(false);
@@ -25,7 +24,7 @@ export default function Videos() {
   };
 
   useEffect(() => {
-    const getImages = async (query, page) => {
+    const getVideo = async (query, page) => {
       if (!query) {
         return;
       }
@@ -40,7 +39,7 @@ export default function Videos() {
         setLoading(false);
       }
     };
-    getImages(searchQuery, page);
+    getVideo(searchQuery, page);
   }, [searchQuery, page]);
 
   const handleSubmit = (data) => {

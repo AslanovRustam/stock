@@ -9,5 +9,13 @@
 .navItem {
   color: white;
   background-color: rgb(33, 32, 32);
-  box-shadow: whitesmoke 0px 0px 3em;
+  box-shadow: whitesmoke 0 0 3em;
+}
+.navItem:hover,
+.navItem:focus {
+  box-shadow: rgb(7, 246, 55) 0 0 2em;
+}
+.active {
+  composes: navItem;
+  box-shadow: rgb(7, 246, 55) 0 0 2em;
 }
