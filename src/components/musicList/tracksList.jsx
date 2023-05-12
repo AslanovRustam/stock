@@ -1,15 +1,16 @@
 import s from "./musicList.module.css";
 import noImage from "../../images/noImage.png";
 
-export default function MusicList({ items, openModal }) {
+export default function TrackList({ items, openModal }) {
+  console.log("items", items);
   return (
     <ul className={s.list}>
       {items?.map((artist) => (
         <li key={artist.id} className={s.item}>
-          {artist?.images?.length ? (
+          {artist.album.images.length ? (
             <img
               className={s.img}
-              src={artist.images[0].url}
+              src={artist.album.images[0].url}
               alt={artist.name}
               onClick={() => openModal(artist.href)}
             />

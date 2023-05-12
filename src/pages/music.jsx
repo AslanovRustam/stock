@@ -3,6 +3,7 @@ import Modal from "../components/modal/modal";
 import SearchBar from "../components/serchbar/searchbar";
 import Loader from "../components/loader/loader";
 import MusicList from "../components/musicList/musicList";
+import TrackList from "../components/musicList/tracksList";
 import Button from "../components/button/button";
 import ScrollToTopBtn from "../components/scrollToTopBtn/scrollToTopBtn";
 import { AUTH_URL, getSpotifyToken } from "../services/apiSpotify";
@@ -14,7 +15,8 @@ export default function Music() {
   const [showModal, setShowmodal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [totalHits, setTotalHits] = useState(0);
-  const [hits, setHits] = useState([]);
+  const [artistItems, setArtistItems] = useState([]);
+  const [tracksItems, setTracksItems] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -50,19 +52,21 @@ export default function Music() {
   const handleSubmit = (value) => {
     setSearchQuery(value);
     setTotalHits(0);
-    setHits([]);
+    setArtistItems([]);
     setPage(1);
     setError(null);
     const search = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/search", {
         headers: { Authorization: `Bearer ${token}` },
-        params: { q: value, type: "artist" },
+        params: { q: value, type: "artist,track" },
       });
-      setHits(data.artists.items);
+      console.log("data", data);
+      setArtistItems(data.artists);
+      setTracksItems(data.tracks);
     };
     search();
   };
-  console.log("hits", hits);
+  // console.log("hits", hits);
   return (
     <>
       <div className={s.container}>
@@ -73,7 +77,12 @@ export default function Music() {
               log out
             </button>
             <SearchBar submitForm={handleSubmit} />
-            {hits && <MusicList items={hits} openModal={toggleModal} />}
+            {artistItems?.items?.length > 0 && (
+              <MusicList items={artistItems.items} openModal={toggleModal} />
+            )}
+            {tracksItems?.items?.length > 0 && (
+              <TrackList items={tracksItems.items} openModal={toggleModal} />
+            )}
           </div>
         ) : (
           <div className={s.btnWrapper}>

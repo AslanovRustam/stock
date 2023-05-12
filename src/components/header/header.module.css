@@ -10,6 +10,7 @@
   color: white;
   background-color: rgb(33, 32, 32);
   box-shadow: whitesmoke 0 0 3em;
+  transition: all 0.3s ease-in-out;
 }
 .navItem:hover,
 .navItem:focus {
