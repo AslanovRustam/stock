@@ -1,8 +1,10 @@
 import s from "./musicList.module.css";
 import noImage from "../../images/noImage.png";
 
-export default function TrackList({ items, openModal }) {
-  console.log("items", items);
+export default function TrackList({ items, chooseTrack }) {
+  function handlePlay(uri) {
+    chooseTrack(uri);
+  }
   return (
     <ul className={s.list}>
       {items?.map((artist) => (
@@ -12,18 +14,19 @@ export default function TrackList({ items, openModal }) {
               className={s.img}
               src={artist.album.images[0].url}
               alt={artist.name}
-              onClick={() => openModal(artist.href)}
+              onClick={() => handlePlay(artist.uri)}
             />
           ) : (
             <img
               className={s.img}
               src={noImage}
               alt="no image"
-              onClick={() => openModal(artist.href)}
+              onClick={() => handlePlay(artist.uri)}
             />
           )}
 
-          {artist.name}
+          <p>{artist.artists[0].name}</p>
+          <p>{artist.name}</p>
         </li>
       ))}
     </ul>

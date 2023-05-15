@@ -1,27 +1,23 @@
 import { useState, useEffect } from "react";
-import Modal from "../components/modal/modal";
+import axios from "axios";
+import { AUTH_URL, FetchTracks } from "../services/apiSpotify";
 import SearchBar from "../components/serchbar/searchbar";
 import Loader from "../components/loader/loader";
 import MusicList from "../components/musicList/musicList";
 import TrackList from "../components/musicList/tracksList";
-import Button from "../components/button/button";
 import ScrollToTopBtn from "../components/scrollToTopBtn/scrollToTopBtn";
-import { AUTH_URL, getSpotifyToken } from "../services/apiSpotify";
-import s from "../components/musicList/musicList.module.css";
+import Player from "../components/Player/player";
 import spotify from "../images/Spotify.png";
-import axios from "axios";
+import s from "../components/musicList/musicList.module.css";
 
 export default function Music() {
-  const [showModal, setShowmodal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [totalHits, setTotalHits] = useState(0);
   const [artistItems, setArtistItems] = useState([]);
   const [tracksItems, setTracksItems] = useState([]);
-  const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [video, setVideo] = useState("");
   const [token, setToken] = useState("");
+  const [playingTrack, setPlayingTrack] = useState();
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -38,35 +34,41 @@ export default function Music() {
     setToken(tokenLoc);
   }, []);
 
+  useEffect(() => {
+    const getTracks = async (query, token) => {
+      if (!query) {
+        return;
+      }
+      try {
+        setLoading(true);
+        const { data } = await FetchTracks(query, token);
+        setArtistItems(data.artists);
+        setTracksItems(data.tracks);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getTracks(searchQuery, token);
+  }, [searchQuery, token]);
+
   const logout = () => {
     setToken("");
     window.localStorage.removeItem("token");
   };
 
-  const toggleModal = (vid) => {
-    setShowmodal(!showModal);
-    console.log("vid", vid);
-    setVideo(vid.link);
-  };
-
   const handleSubmit = (value) => {
     setSearchQuery(value);
-    setTotalHits(0);
     setArtistItems([]);
-    setPage(1);
+    setTracksItems([]);
     setError(null);
-    const search = async () => {
-      const { data } = await axios.get("https://api.spotify.com/v1/search", {
-        headers: { Authorization: `Bearer ${token}` },
-        params: { q: value, type: "artist,track" },
-      });
-      console.log("data", data);
-      setArtistItems(data.artists);
-      setTracksItems(data.tracks);
-    };
-    search();
+    setLoading(false);
   };
-  // console.log("hits", hits);
+  function chooseTrack(track) {
+    setPlayingTrack(track);
+  }
+
   return (
     <>
       <div className={s.container}>
@@ -77,11 +79,14 @@ export default function Music() {
               log out
             </button>
             <SearchBar submitForm={handleSubmit} />
-            {artistItems?.items?.length > 0 && (
+            {/* {artistItems?.items?.length > 0 && (
               <MusicList items={artistItems.items} openModal={toggleModal} />
+            )} */}
+            {tracksItems?.items?.length > 0 && (
+              <TrackList items={tracksItems.items} chooseTrack={chooseTrack} />
             )}
             {tracksItems?.items?.length > 0 && (
-              <TrackList items={tracksItems.items} openModal={toggleModal} />
+              <Player token={token} trackUri={playingTrack} />
             )}
           </div>
         ) : (
@@ -103,11 +108,9 @@ export default function Music() {
         )}
       </div>
 
-      {/* {hits.length < totalHits && <Button setPage={setPage} page={page} />} */}
-      {/* <ScrollToTopBtn /> */}
-      {/* {loading && <Loader />} */}
-      {/* {error && <div>{error}</div>} */}
-      {/* {showModal && <Modal onClose={toggleModal} data={video} video />} */}
+      <ScrollToTopBtn />
+      {loading && <Loader />}
+      {error && <div>{error}</div>}
     </>
   );
 }
